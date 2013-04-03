@@ -73,7 +73,11 @@ namespace SkypePublicApiConnector
             copyStruct.lpData = Marshal.AllocHGlobal(cmdLength);
             Marshal.Copy(utf8cmd, 0, copyStruct.lpData, cmdLength);
 
-            Native.SendMessage(Internal.skypeHwnd.ToInt32(), (uint)Internal.WM_COPYDATA, Internal.receiverHWND, ref copyStruct);
+            Native.SendMessage(
+                Internal.skypeHwnd.ToInt32(), 
+                (uint)Internal.WM_COPYDATA, 
+                Internal.receiverHWND, 
+                ref copyStruct);
         }
 
         private void AttatchToSkype()
@@ -116,7 +120,10 @@ namespace SkypePublicApiConnector
 
                 if ((msg.Msg == Internal.WM_COPYDATA) & (msg.WParam == Internal.skypeHwnd))
                 {
-                    Native.CopyDataStruct copyStruct = (Native.CopyDataStruct)Marshal.PtrToStructure(msg.LParam, typeof(Native.CopyDataStruct));
+                    Native.CopyDataStruct copyStruct = (Native.CopyDataStruct)Marshal.PtrToStructure(
+                        msg.LParam, 
+                        typeof(Native.CopyDataStruct));
+                        
                     string fromSkype = Utf8PtrToString(copyStruct.lpData);
 
                     connector.FireOnReceiveEvent(fromSkype);
@@ -196,7 +203,13 @@ namespace SkypePublicApiConnector
             public static extern uint RegisterWindowMessage(string lpString);
 
             [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-            public static extern int MultiByteToWideChar(int codepage, int flags, IntPtr utf8, int utf8len, StringBuilder buffer, int buflen);
+            public static extern int MultiByteToWideChar(
+                int codepage, 
+                int flags, 
+                IntPtr utf8, 
+                int utf8len, 
+                StringBuilder buffer, 
+                int buflen);
 
             [DllImport("user32.dll")]
             public static extern bool PostMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
