@@ -1,5 +1,5 @@
 /*************************************************************************************************
- * The SkypeConnector class exposes simple access to the Skype Public API (Skype aka Desktop API).
+ * The SkypeConnector class exposes simple access to the Skype Public API (aka Desktop API).
  * For more information on Skype Public API http://dev.skype.com/accessories
  * 
  * 1. Establishing connection to Skype desktop client
@@ -19,8 +19,8 @@
  * NB! The Public API transport goes over Windows messaging system. Thus a valid window handle 
  * and a WndProc are required for this lib to work. The SkypeConnector constructor takes a Form 
  * argument (presumably the main form but any will do) and inserts a hidden control into it,
- * which provides hwind and WndProc for the transport. A side effect of this is dependancy
- * on Windows.Forms, but a making a WPF version should not be terribly difficult.
+ * which provides hwnd and WndProc for the transport. A side effect of this is dependancy
+ * on Windows.Forms, but making a WPF version should not be terribly difficult.
  * 
  *************************************************************************************************/
 
